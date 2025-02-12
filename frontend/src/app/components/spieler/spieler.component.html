@@ -1,1 +1,16 @@
 
+<div class="spieler-cards">
+    <h2>Spieler Übersicht</h2>
+    <!-- Button zum Anlegen eines neuen Spielers -->
+    <button (click)="onNewSpieler()">Neuen Spieler anlegen</button>
+    
+    <div class="cards-container">
+      <!-- *ngFor funktioniert, weil CommonModule importiert wurde -->
+      <app-spieler-card 
+        *ngFor="let s of spielerListe"
+        [spieler]="s"
+        (editSpieler)="onEdit($event)"
+        (deleteSpieler)="onDelete($event)">
+      </app-spieler-card>
+    </div>
+  </div>

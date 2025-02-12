@@ -1,0 +1,10 @@
+<div class="card">
+    <h3>{{ spieler.name }}</h3>
+    <p>Geburtsjahr: {{ spieler.geburtsjahr }}</p>
+    <p>Stadt: {{ spieler.stadt }}</p>
+    <p>Land: {{ spieler.land }}</p>
+    <div class="actions">
+      <button (click)="onEdit()">Bearbeiten</button>
+      <button (click)="onDelete()">Löschen</button>
+    </div>
+  </div>
