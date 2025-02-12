@@ -1,10 +1,9 @@
-// src/app/services/spieler.service.ts
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 export interface Spieler {
-  id?: number;         // id ist optional, da sie vom Backend generiert wird
+  id?: number;          
   name: string;
   geburtsjahr: number;
   stadt: string;
@@ -15,27 +14,29 @@ export interface Spieler {
   providedIn: 'root'
 })
 export class SpielerService {
-  // Passe die URL an deine Umgebung an (Backend muss laufen!)
+
+  // Basis-URL zum Backend – hier anpassen, falls notwendig
   private apiUrl = 'http://localhost:8080/api/spieler';
 
+  // HttpClient wird über den Konstruktor injiziert
   constructor(private http: HttpClient) {}
 
-  // Alle Spieler abrufen
+  // Methode, um alle Spieler abzurufen
   getSpieler(): Observable<Spieler[]> {
     return this.http.get<Spieler[]>(`${this.apiUrl}/getAll`);
   }
 
-  // Neuen Spieler anlegen
+  // Methode, um einen neuen Spieler anzulegen
   createSpieler(spieler: Spieler): Observable<Spieler> {
     return this.http.post<Spieler>(`${this.apiUrl}/create`, spieler);
   }
 
-  // Einen Spieler aktualisieren
+  // Methode, um einen bestehenden Spieler zu aktualisieren
   updateSpieler(id: number, spieler: Spieler): Observable<Spieler> {
     return this.http.put<Spieler>(`${this.apiUrl}/update/${id}`, spieler);
   }
 
-  // Einen Spieler löschen
+  // Methode, um einen Spieler zu löschen
   deleteSpieler(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
   }
