@@ -1,0 +1,64 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # Frontend Build & Test
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm run build
+
+      - name: Run Frontend Tests
+        run: |
+          cd frontend
+          npm test
+
+  # Backend Build & Test
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Build Backend
+        run: |
+          cd backend
+          npm run build
+
+      - name: Run Backend Tests
+        run: |
+          cd backend
+          npm test
