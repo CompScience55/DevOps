@@ -52,7 +52,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd DevOps
+          cd frontend/package.json
           npm install
 
       - name: Build Backend
