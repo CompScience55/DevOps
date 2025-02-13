@@ -1,66 +1,77 @@
-name: CI Workflow
+name: Build and Test Workflow
 
 on:
   push:
     branches:
       - main
+    
   pull_request:
     branches:
       - main
+  
   workflow_dispatch:
 
-
 jobs:
-  # Frontend Build & Test
-  frontend:
+  # Job für das Java-Backend
+  backend:
+    name: Build and Test Backend
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
+      - name: Check out Code
+        uses: actions/checkout@v3
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Cache Maven Repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build and Test Backend
+        run: |
+          cd backend
+          mvn clean install
+          mvn test
+
+  # Job für das Angular-Frontend
+  frontend:
+    name: Build and Test Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Code
         uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.19'
+          node-version: '18'
 
-      - name: Install dependencies
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Frontend Dependencies
         run: |
           cd frontend
           npm install
-
-      - name: Build Frontend
-        run: |
-          cd frontend
-          npm run build
 
       - name: Run Frontend Tests
         run: |
           cd frontend
           npm test
 
-  # Backend Build & Test
-  backend:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.19'
-
-      - name: Install dependencies
+      - name: Build Frontend
         run: |
           cd frontend
-          npm install
-
-      - name: Build Backend
-        run: |
-          cd DevOps
           npm run build
-
-      - name: Run Backend Tests
-        run: |
-          cd backend
-          npm test
