@@ -50,12 +50,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd backend
+          cd DevOps
           npm install
 
       - name: Build Backend
         run: |
-          cd backend
+          cd DevOps
           npm run build
 
       - name: Run Backend Tests
