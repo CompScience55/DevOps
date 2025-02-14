@@ -3,11 +3,11 @@ name: CI Workflow
 on:
   push:
     branches:
-      - main
+      - master
     
   pull_request:
     branches:
-      - main
+      - master
   
   workflow_dispatch:
 
@@ -16,6 +16,8 @@ jobs:
   backend:
     name: Build and Test Backend
     runs-on: ubuntu-latest
+    env: 
+      SPRING_PROFILES_ACTIVE: ci
     steps:
       - name: Check out Code
         uses: actions/checkout@v3
@@ -37,8 +39,8 @@ jobs:
       - name: Build and Test Backend
         run: |
           cd DevOps
-          mvn clean install -Dspring.profiles.active=ci
-          mvn test -Dspring.profiles.active=ci
+          mvn clean install
+          mvn test
 
   # Job für das Angular-Frontend
   frontend:
