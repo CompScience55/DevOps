@@ -1,11 +1,13 @@
-
-<div class="spieler-cards">
-    <h2>Spieler Übersicht</h2>
+<mat-card class="spieler-cards">
+  <mat-card-header>
+    <mat-card-title>Spieler Übersicht</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
     <!-- Button zum Anlegen eines neuen Spielers -->
-    <button (click)="onNewSpieler()">Neuen Spieler anlegen</button>
+    <button mat-raised-button color="accent" (click)="onNewSpieler()">Neuen Spieler anlegen</button>
     
-    <div class="cards-container">
-      <!-- *ngFor funktioniert, weil CommonModule importiert wurde -->
+    <div class="cards-container" style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 16px;">
+      <!-- Spieler-Karten (z. B. als eigene Material-Karten implementiert) -->
       <app-spieler-card 
         *ngFor="let s of spielerListe"
         [spieler]="s"
@@ -13,4 +15,5 @@
         (deleteSpieler)="onDelete($event)">
       </app-spieler-card>
     </div>
-  </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Spieler bearbeiten</h1>
+<div mat-dialog-content>
+  <form [formGroup]="editSpielerForm" (ngSubmit)="onSave()">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" required aria-required="true">
+      <mat-error *ngIf="editSpielerForm.get('name')?.hasError('required')">
+        Name ist erforderlich.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Geburtsjahr</mat-label>
+      <input matInput type="number" formControlName="geburtsjahr" required aria-required="true">
+      <mat-error *ngIf="editSpielerForm.get('geburtsjahr')?.hasError('required')">
+        Geburtsjahr ist erforderlich.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Stadt</mat-label>
+      <input matInput formControlName="stadt" required aria-required="true">
+      <mat-error *ngIf="editSpielerForm.get('stadt')?.hasError('required')">
+        Stadt ist erforderlich.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Land</mat-label>
+      <input matInput formControlName="land" required aria-required="true">
+      <mat-error *ngIf="editSpielerForm.get('land')?.hasError('required')">
+        Land ist erforderlich.
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Abbrechen</button>
+  <button mat-button color="primary" [disabled]="editSpielerForm.invalid" (click)="onSave()">Speichern</button>
+</div>

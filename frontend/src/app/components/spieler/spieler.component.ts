@@ -3,18 +3,23 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SpielerCardComponent } from '../spieler-card/spieler-card.component';
 import { Spieler, SpielerService } from '../../service/spieler.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SpielerDialogComponent } from '../spieler-dialog/spieler-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { EditSpielerDialogComponent } from '../edit-spieler-dialog/edit-spieler-dialog.component';
 
 @Component({
   selector: 'app-spieler-cards',
   standalone: true,
-  imports: [CommonModule, SpielerCardComponent],
+  imports: [CommonModule, SpielerCardComponent, MatButtonModule, MatCardModule],
   templateUrl: "./spieler.component.html",
   styleUrls: ["./spieler.component.css"]
 })
 export class SpielerComponent implements OnInit {
   spielerListe: Spieler[] = [];
-
-  constructor(private spielerService: SpielerService) {}
+  
+  constructor(private spielerService: SpielerService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadSpieler();
@@ -28,8 +33,18 @@ export class SpielerComponent implements OnInit {
   }
 
   onEdit(spieler: Spieler): void {
-    // Hier kannst du z. B. zu einem Bearbeitungsformular navigieren oder einen Modal öffnen.
-    console.log('Spieler bearbeiten:', spieler);
+    const dialogRef = this.dialog.open(EditSpielerDialogComponent, {
+      width: '400px',
+      height: '400px',
+      data: spieler
+    });
+  
+    dialogRef.afterClosed().subscribe((result: Spieler | undefined) => {
+      if (result) {
+        // Hier kannst du z. B. den Service aufrufen, um den Spieler zu aktualisieren
+        console.log('Aktualisierter Spieler:', result);
+      }
+    });
   }
 
   onDelete(spieler: Spieler): void {
@@ -44,7 +59,19 @@ export class SpielerComponent implements OnInit {
   }
 
   onNewSpieler(): void {
-    // Hier wird z. B. ein Formular oder ein Modal geöffnet, um einen neuen Spieler anzulegen.
-    console.log('Neuen Spieler anlegen');
+    const dialogRef = this.dialog.open(SpielerDialogComponent, {
+      width: '400px',
+      data: {}  // Falls du Standardwerte setzen möchtest
+    });
+
+    dialogRef.afterClosed().subscribe((result: Spieler) => {
+      if (result) {
+        // Verwende deinen Service, um den neuen Spieler zu speichern
+        this.spielerService.createSpieler(result).subscribe(newSpieler => {
+          // Füge den neuen Spieler der Liste hinzu oder lade die Liste neu
+          this.spielerListe.push(newSpieler);
+        });
+      }
+    });
   }
 }

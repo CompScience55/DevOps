@@ -37,8 +37,8 @@ jobs:
       - name: Build and Test Backend
         run: |
           cd DevOps
-          mvn clean install
-          mvn test
+          mvn clean install -Dspring.profiles.active=ci
+          mvn test -Dspring.profiles.active=ci
 
   # Job für das Angular-Frontend
   frontend:
