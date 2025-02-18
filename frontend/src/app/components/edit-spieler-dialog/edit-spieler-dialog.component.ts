@@ -5,12 +5,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-spieler-dialog',
   templateUrl: './edit-spieler-dialog.component.html',
-  imports: [MatFormFieldModule, ReactiveFormsModule, MatInputModule, MatButtonModule]
+  imports: [MatFormFieldModule, ReactiveFormsModule, MatInputModule, MatButtonModule, CommonModule],
+  standalone: true
 })
 export class EditSpielerDialogComponent implements OnInit {
   editSpielerForm: FormGroup;
