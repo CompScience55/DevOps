@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SpielerRepository extends JpaRepository<Spieler, Long> {
-    // Standard-CRUD-Methoden sind hier bereits enthalten
 }

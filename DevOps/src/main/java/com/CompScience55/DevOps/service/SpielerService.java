@@ -1,11 +1,14 @@
 package com.CompScience55.DevOps.service;
 
+import com.CompScience55.DevOps.dto.SpielerDTO;
+import com.CompScience55.DevOps.dto.SpielerMapper;
 import com.CompScience55.DevOps.model.Spieler;
 import com.CompScience55.DevOps.repository.SpielerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SpielerService {
@@ -17,30 +20,35 @@ public class SpielerService {
     }
 
     // Alle Spieler abrufen
-    public List<Spieler> getAllSpieler() {
-        return spielerRepository.findAll();
+    public List<SpielerDTO> getAllSpieler() {
+        return spielerRepository.findAll().stream().map(SpielerMapper::fromEntity).collect(Collectors.toList());
     }
 
     // Spieler anhand der ID abrufen
-    public Optional<Spieler> getSpielerById(Long id) {
-        return spielerRepository.findById(id);
+    public SpielerDTO getSpielerById(Long id) {
+        return SpielerMapper.fromEntity(spielerRepository.getReferenceById(id));
+    }
+
+    public SpielerDTO updateSpieler(Long id, SpielerDTO updatedSpieler) {
+        // Hole die Referenz zum existierenden Spieler
+        Spieler spieler = spielerRepository.getReferenceById(id);
+
+        // Aktualisiere die Felder
+        spieler.setName(updatedSpieler.getName());
+        spieler.setGeburtsjahr(updatedSpieler.getGeburtsjahr());
+        spieler.setStadt(updatedSpieler.getStadt());
+        spieler.setLand(updatedSpieler.getLand());
+
+        // Speichere den aktualisierten Spieler
+        spielerRepository.save(spieler);
+
+        // Wandle den Spieler in ein DTO um und gib es zurück
+        return SpielerMapper.fromEntity(spieler);
     }
 
     // Neuen Spieler erstellen
-    public Spieler createSpieler(Spieler spieler) {
-        return spielerRepository.save(spieler);
-    }
-
-    // Spieler aktualisieren
-    public Optional<Spieler> updateSpieler(Long id, Spieler updatedSpieler) {
-        return spielerRepository.findById(id)
-                .map(existingSpieler -> {
-                    existingSpieler.setName(updatedSpieler.getName());
-                    existingSpieler.setGeburtsjahr(updatedSpieler.getGeburtsjahr());
-                    existingSpieler.setStadt(updatedSpieler.getStadt());
-                    existingSpieler.setLand(updatedSpieler.getLand());
-                    return spielerRepository.save(existingSpieler);
-                });
+    public SpielerDTO createSpieler(SpielerDTO spieler) {
+        return SpielerMapper.fromEntity(spielerRepository.save(SpielerMapper.toEntity(spieler)));
     }
 
     // Spieler löschen

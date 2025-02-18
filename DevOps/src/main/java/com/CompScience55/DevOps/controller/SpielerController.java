@@ -1,4 +1,5 @@
 package com.CompScience55.DevOps.controller;
+import com.CompScience55.DevOps.dto.SpielerDTO;
 import com.CompScience55.DevOps.model.Spieler;
 import com.CompScience55.DevOps.service.SpielerService;
 import org.springframework.http.ResponseEntity;
@@ -18,30 +19,26 @@ public class SpielerController {
 
     // Alle Spieler abrufen
     @GetMapping("/getAll")
-    public List<Spieler> getAllSpieler() {
+    public List<SpielerDTO> getAllSpieler() {
         return spielerService.getAllSpieler();
     }
 
     // Spieler anhand der ID abrufen
     @GetMapping("/get/{id}")
-    public ResponseEntity<Spieler> getSpielerById(@PathVariable Long id) {
-        return spielerService.getSpielerById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<SpielerDTO> getSpielerById(@PathVariable Long id) {
+        return ResponseEntity.ok(spielerService.getSpielerById(id));
     }
 
     // Neuen Spieler erstellen
     @PostMapping("/create")
-    public Spieler createSpieler(@RequestBody Spieler spieler) {
+    public SpielerDTO createSpieler(@RequestBody SpielerDTO spieler) {
         return spielerService.createSpieler(spieler);
     }
 
     // Spieler aktualisieren
     @PutMapping("/update/{id}")
-    public ResponseEntity<Spieler> updateSpieler(@PathVariable Long id, @RequestBody Spieler spieler) {
-        return spielerService.updateSpieler(id, spieler)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<SpielerDTO> updateSpieler(@PathVariable Long id, @RequestBody SpielerDTO spieler) {
+        return ResponseEntity.ok(spielerService.updateSpieler(id, spieler));
     }
 
     // Spieler löschen

@@ -1,27 +1,17 @@
-package com.CompScience55.DevOps.model;
+package com.CompScience55.DevOps.dto;
 
-import jakarta.persistence.*;
+import com.CompScience55.DevOps.model.Spieler;
 
-@Entity
-@Table(name = "spieler")
-public class Spieler {
+public class SpielerDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String name;
-
     private Integer geburtsjahr;
     private String stadt;
     private String land;
 
-    // Standard-Konstruktor
-    public Spieler() {
-    }
-
-    public Spieler(String name, Integer geburtsjahr, String stadt, String land) {
+    public SpielerDTO(Long id, String name, Integer geburtsjahr, String stadt, String land) {
+        this.id = id;
         this.name = name;
         this.geburtsjahr = geburtsjahr;
         this.stadt = stadt;
@@ -32,7 +22,7 @@ public class Spieler {
         return id;
     }
 
-    public Spieler setId(Long id) {
+    public SpielerDTO setId(Long id) {
         this.id = id;
         return this;
     }
@@ -41,7 +31,7 @@ public class Spieler {
         return name;
     }
 
-    public Spieler setName(String name) {
+    public SpielerDTO setName(String name) {
         this.name = name;
         return this;
     }
@@ -50,7 +40,7 @@ public class Spieler {
         return geburtsjahr;
     }
 
-    public Spieler setGeburtsjahr(Integer geburtsjahr) {
+    public SpielerDTO setGeburtsjahr(Integer geburtsjahr) {
         this.geburtsjahr = geburtsjahr;
         return this;
     }
@@ -59,7 +49,7 @@ public class Spieler {
         return stadt;
     }
 
-    public Spieler setStadt(String stadt) {
+    public SpielerDTO setStadt(String stadt) {
         this.stadt = stadt;
         return this;
     }
@@ -68,7 +58,7 @@ public class Spieler {
         return land;
     }
 
-    public Spieler setLand(String land) {
+    public SpielerDTO setLand(String land) {
         this.land = land;
         return this;
     }
