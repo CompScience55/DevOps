@@ -18,6 +18,9 @@ public class SpielerDTO {
         this.land = land;
     }
 
+    public SpielerDTO() {
+    }
+
     public Long getId() {
         return id;
     }

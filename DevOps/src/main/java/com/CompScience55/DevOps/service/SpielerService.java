@@ -5,6 +5,7 @@ import com.CompScience55.DevOps.dto.SpielerMapper;
 import com.CompScience55.DevOps.model.Spieler;
 import com.CompScience55.DevOps.repository.SpielerRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,10 +26,12 @@ public class SpielerService {
     }
 
     // Spieler anhand der ID abrufen
+    @Transactional(readOnly = true)
     public SpielerDTO getSpielerById(Long id) {
         return SpielerMapper.fromEntity(spielerRepository.getReferenceById(id));
     }
 
+    @Transactional
     public SpielerDTO updateSpieler(Long id, SpielerDTO updatedSpieler) {
         // Hole die Referenz zum existierenden Spieler
         Spieler spieler = spielerRepository.getReferenceById(id);

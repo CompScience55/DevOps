@@ -34,15 +34,25 @@ export class SpielerComponent implements OnInit {
 
   onEdit(spieler: Spieler): void {
     const dialogRef = this.dialog.open(EditSpielerDialogComponent, {
-      width: '400px',
-      height: '400px',
-      data: spieler
+      width: '400px',       // feste Breite
+      // height: '400px',    // lieber weglassen
+      maxHeight: '80vh',    // nur, wenn du eine maximale Höhe möchtest
+      data: spieler,
+      panelClass: 'no-scroll-dialog'
     });
+    
   
     dialogRef.afterClosed().subscribe((result: Spieler | undefined) => {
       if (result) {
-        // Hier kannst du z. B. den Service aufrufen, um den Spieler zu aktualisieren
-        console.log('Aktualisierter Spieler:', result);
+        // Aufruf des Services, um den Spieler zu aktualisieren
+        this.spielerService.updateSpieler(result.id!, result).subscribe({
+          next: (updatedSpieler) => {
+            console.log('Spieler erfolgreich aktualisiert:', updatedSpieler);
+            // Optional: Liste neu laden, um die UI zu aktualisieren
+            this.loadSpieler();
+          },
+          error: (err) => console.error('Fehler beim Aktualisieren des Spielers:', err)
+        });
       }
     });
   }

@@ -1,6 +1,7 @@
-<h1 mat-dialog-title>Spieler bearbeiten</h1>
-<div mat-dialog-content>
-  <form [formGroup]="editSpielerForm" (ngSubmit)="onSave()">
+<h1 mat-dialog-title class="dialog-title">Spieler bearbeiten</h1>
+
+<div mat-dialog-content class="dialog-content">
+  <form [formGroup]="editSpielerForm" (ngSubmit)="onSave()" class="edit-form">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" required aria-required="true">
@@ -34,7 +35,8 @@
     </mat-form-field>
   </form>
 </div>
-<div mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">Abbrechen</button>
-  <button mat-button color="primary" [disabled]="editSpielerForm.invalid" (click)="onSave()">Speichern</button>
+
+<div mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-stroked-button color="warn" (click)="onCancel()">Abbrechen</button>
+  <button mat-flat-button color="primary" [disabled]="editSpielerForm.invalid" (click)="onSave()">Speichern</button>
 </div>
