@@ -15,7 +15,8 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    CommonModule
   ],
   standalone: true
 })
