@@ -10,8 +10,7 @@ describe('SpielerCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatCardModule, MatButtonModule],
-      declarations: [SpielerCardComponent],
+      imports: [MatCardModule, MatButtonModule, SpielerCardComponent],
     }).compileComponents();
   });
 

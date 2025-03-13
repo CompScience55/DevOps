@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SpielerDialogComponent } from './spieler-dialog.component';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('SpielerDialogComponent', () => {
@@ -12,6 +12,7 @@ describe('SpielerDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SpielerDialogComponent, MatDialogModule],
       providers: [
+        { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} },
         provideHttpClientTesting() 
       ],
