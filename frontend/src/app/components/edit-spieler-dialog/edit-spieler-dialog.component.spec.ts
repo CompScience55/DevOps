@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditSpielerDialogComponent } from './edit-spieler-dialog.component';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { HttpClientTestingModule, provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('EditSpielerDialogComponent', () => {
   let component: EditSpielerDialogComponent;
@@ -8,7 +10,11 @@ describe('EditSpielerDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditSpielerDialogComponent]
+      imports: [EditSpielerDialogComponent, MatDialogModule],
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        provideHttpClientTesting() 
+      ],
     })
     .compileComponents();
 
