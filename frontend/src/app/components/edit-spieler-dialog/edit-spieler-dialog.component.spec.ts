@@ -4,6 +4,7 @@ import { EditSpielerDialogComponent } from './edit-spieler-dialog.component';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { CommonModule } from '@angular/common';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 describe('EditSpielerDialogComponent', () => {
   let component: EditSpielerDialogComponent;
@@ -15,7 +16,8 @@ describe('EditSpielerDialogComponent', () => {
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} },
-        provideHttpClientTesting() 
+        provideHttpClientTesting() ,
+        provideAnimationsAsync()
       ],
     })
     .compileComponents();
