@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       SPRING_PROFILES_ACTIVE: ci
+      CI: true
     steps:
       - name: Check out Code
         uses: actions/checkout@v3
@@ -71,7 +72,7 @@ jobs:
       - name: Run Frontend Tests
         run: |
           cd frontend
-          npm test
+          npm test -- --watch=false --browsers=ChromeHeadless
 
       - name: Build Frontend
         run: |

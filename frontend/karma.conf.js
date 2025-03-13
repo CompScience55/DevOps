@@ -8,6 +8,7 @@ module.exports = function(config) {
           flags: ['--no-sandbox', '--disable-gpu']
         }
       },
+      singleRun: true
       // ...
     });
   };
