@@ -1,6 +1,5 @@
 module.exports = function(config) {
     config.set({
-      // ... deine bisherigen Konfigurationen ...
       browsers: ['ChromeHeadlessNoSandbox'],
       customLaunchers: {
         ChromeHeadlessNoSandbox: {
@@ -9,7 +8,6 @@ module.exports = function(config) {
         }
       },
       singleRun: true
-      // ...
     });
   };
   

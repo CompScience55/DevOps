@@ -71,14 +71,14 @@ export class SpielerComponent implements OnInit {
   onNewSpieler(): void {
     const dialogRef = this.dialog.open(SpielerDialogComponent, {
       width: '400px',
-      data: {}  // Falls du Standardwerte setzen möchtest
+      data: {}  // Falls Standardwerte gesetzen werden sollen 
     });
 
     dialogRef.afterClosed().subscribe((result: Spieler) => {
       if (result) {
-        // Verwende deinen Service, um den neuen Spieler zu speichern
+        // Speichern neuer Spieler
         this.spielerService.createSpieler(result).subscribe(newSpieler => {
-          // Füge den neuen Spieler der Liste hinzu oder lade die Liste neu
+          // Neuen Spieler der Liste hinzufügen oder die Liste neuladen 
           this.spielerListe.push(newSpieler);
         });
       }

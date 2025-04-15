@@ -15,7 +15,7 @@ interface SpielerHateoasResponse {
   _embedded: {
     spielerDTOList: Spieler[];
   };
-  _links: any; // Weitere Links, falls benötigt
+  _links: any; 
 }
 
 @Injectable({
@@ -23,7 +23,7 @@ interface SpielerHateoasResponse {
 })
 export class SpielerService {
 
-  // Basis-URL zum Backend – hier anpassen, falls notwendig
+  // Basis-URL zum Backend 
   private apiUrl = 'http://localhost:8080/api/spieler';
 
   constructor(private http: HttpClient) {}
@@ -42,7 +42,6 @@ export class SpielerService {
       );
   }
 
-  // Weitere Methoden können ähnlich angepasst werden, falls sie von HATEOAS-Struktur betroffen sind
   createSpieler(spieler: Spieler): Observable<Spieler> {
     return this.http.post<Spieler>(`${this.apiUrl}/create`, spieler);
   }

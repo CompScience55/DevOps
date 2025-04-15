@@ -45,7 +45,7 @@ export class EditSpielerDialogComponent implements OnInit {
 
   onSave(): void {
     if (this.editSpielerForm.valid) {
-      // Kombiniere die ursprünglichen Daten mit den neuen Werten
+      // Kombiniert die ursprünglichen Daten mit den neuen Werten
       const updatedSpieler = { ...this.data, ...this.editSpielerForm.value };
       this.dialogRef.close(updatedSpieler);
     }

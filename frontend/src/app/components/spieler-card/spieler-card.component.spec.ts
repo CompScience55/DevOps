@@ -30,5 +30,4 @@ describe('SpielerCardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // Weitere Tests...
 });

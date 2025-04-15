@@ -14,7 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class SpielerCardComponent {
   @Input() spieler!: Spieler;
-  // Um Namenskonflikte mit nativen DOM-Events (z. B. "delete") zu vermeiden, haben wir die Outputs umbenannt:
+  // Um Namenskonflikte mit nativen DOM-Events zu vermeiden, haben wir die Outputs umbenannt:
   @Output() editSpieler = new EventEmitter<Spieler>();
   @Output() deleteSpieler = new EventEmitter<Spieler>();
 
