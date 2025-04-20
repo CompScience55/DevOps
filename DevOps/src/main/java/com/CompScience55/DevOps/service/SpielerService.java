@@ -20,17 +20,33 @@ public class SpielerService {
         this.spielerRepository = spielerRepository;
     }
 
-    // Alle Spieler abrufen
+    /**
+     * Ruft alle Spieler aus dem Repository ab und liefert sie als Liste von DTOs zurück.
+     *
+     * @return Liste aller Spieler als SpielerDTO
+     */
     public List<SpielerDTO> getAllSpieler() {
         return spielerRepository.findAll().stream().map(SpielerMapper::fromEntity).collect(Collectors.toList());
     }
 
-    // Spieler anhand der ID abrufen
+    /**
+     * Ruft einen einzelnen Spieler anhand der übergebenen ID ab.
+     *
+     * @param id die ID des gesuchten Spielers
+     * @return Das gefundene SpielerDTO
+     */
     @Transactional(readOnly = true)
     public SpielerDTO getSpielerById(Long id) {
         return SpielerMapper.fromEntity(spielerRepository.getReferenceById(id));
     }
 
+    /**
+     * Aktualisiert die Daten eines bestehenden Spielers und speichert die Änderungen.
+     *
+     * @param id               die ID des zu aktualisierenden Spielers
+     * @param updatedSpieler   DTO mit den neuen Daten für den Spieler
+     * @return Das aktualisierte SpielerDTO
+     */
     @Transactional
     public SpielerDTO updateSpieler(Long id, SpielerDTO updatedSpieler) {
         // Hole die Referenz zum existierenden Spieler
@@ -49,12 +65,23 @@ public class SpielerService {
         return SpielerMapper.fromEntity(spieler);
     }
 
-    // Neuen Spieler erstellen
+
+    /**
+     * Erstellt einen neuen Spieler basierend auf den übergebenen Daten und speichert ihn im Repository.
+     *
+     * @param spieler DTO mit den Daten des neuen Spielers
+     * @return Das neu erstellte SpielerDTO
+     */
     public SpielerDTO createSpieler(SpielerDTO spieler) {
         return SpielerMapper.fromEntity(spielerRepository.save(SpielerMapper.toEntity(spieler)));
     }
 
-    // Spieler löschen
+    /**
+     * Löscht einen Spieler anhand seiner ID, falls er existiert.
+     *
+     * @param id die ID des zu löschenden Spielers
+     * @return true, wenn der Spieler gefunden und gelöscht wurde, sonst false
+     */
     public boolean deleteSpieler(Long id) {
         return spielerRepository.findById(id)
                 .map(spieler -> {

@@ -22,7 +22,11 @@ public class SpielerController {
         this.spielerService = spielerService;
     }
 
-    // Alle Spieler abrufen und als CollectionModel zurückliefern
+    /**
+     * Ruft alle Spieler ab und liefert sie als HATEOAS CollectionModel zurück.
+     *
+     * @return ResponseEntity mit CollectionModel aller Spieler
+     */
     @GetMapping("/getAll")
     public ResponseEntity<CollectionModel<EntityModel<SpielerDTO>>> getAllSpieler() {
         List<EntityModel<SpielerDTO>> spielerList = spielerService.getAllSpieler().stream()
@@ -37,7 +41,12 @@ public class SpielerController {
         return ResponseEntity.ok(collectionModel);
     }
 
-    // Spieler anhand der ID abrufen und mit Links zurückliefern
+    /**
+     * Ruft einen einzelnen Spieler anhand der übergebenen ID ab und liefert ihn als HATEOAS EntityModel zurück.
+     *
+     * @param id die ID des gesuchten Spielers
+     * @return ResponseEntity mit EntityModel des gefundenen Spielers
+     */
     @GetMapping("/get/{id}")
     public ResponseEntity<EntityModel<SpielerDTO>> getSpielerById(@PathVariable Long id) {
         SpielerDTO spieler = spielerService.getSpielerById(id);
@@ -49,7 +58,12 @@ public class SpielerController {
         return ResponseEntity.ok(entityModel);
     }
 
-    // Neuen Spieler erstellen und Hypermedia-Link hinzufügen
+    /**
+     * Erstellt einen neuen Spieler und fügt einen Self-Link zum erstellten Spieler hinzu.
+     *
+     * @param spieler das DTO mit den Daten des neuen Spielers
+     * @return ResponseEntity mit EntityModel des neu erstellten Spielers
+     */
     @PostMapping("/create")
     public ResponseEntity<EntityModel<SpielerDTO>> createSpieler(@RequestBody SpielerDTO spieler) {
         SpielerDTO createdSpieler = spielerService.createSpieler(spieler);
@@ -62,7 +76,13 @@ public class SpielerController {
                 .body(entityModel);
     }
 
-    // Spieler aktualisieren und aktualisiertes Objekt mit Links zurückliefern
+    /**
+     * Aktualisiert einen bestehenden Spieler mit den übergebenen Daten und liefert das aktualisierte Objekt zurück.
+     *
+     * @param id      die ID des zu aktualisierenden Spielers
+     * @param spieler das DTO mit den neuen Daten für den Spieler
+     * @return ResponseEntity mit EntityModel des aktualisierten Spielers
+     */
     @PutMapping("/update/{id}")
     public ResponseEntity<EntityModel<SpielerDTO>> updateSpieler(@PathVariable Long id, @RequestBody SpielerDTO spieler) {
         SpielerDTO updatedSpieler = spielerService.updateSpieler(id, spieler);
@@ -73,7 +93,12 @@ public class SpielerController {
         return ResponseEntity.ok(entityModel);
     }
 
-    // Spieler löschen
+    /**
+     * Löscht einen Spieler anhand seiner ID.
+     *
+     * @param id die ID des zu löschenden Spielers
+     * @return ResponseEntity ohne Inhalt bei erfolgreichem Löschen oder 404, wenn nicht gefunden
+     */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteSpieler(@PathVariable Long id) {
         boolean deleted = spielerService.deleteSpieler(id);
